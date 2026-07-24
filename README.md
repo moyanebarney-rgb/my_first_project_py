@@ -17,7 +17,7 @@ This project simulates a simple employee and department database. It demonstrate
 
 ## 📊 The Queries
 
-This project includes four SQL queries that build on each other:
+This project includes five SQL queries that build on each other:
 
 | Query | Type | What It Does |
 | :--- | :--- | :--- |
@@ -25,6 +25,7 @@ This project includes four SQL queries that build on each other:
 | **Query 2** | Table Join (`JOIN`) | Combines employee and department data |
 | **Query 3** | Comparison Filter (`WHERE >`) | Finds employees earning above a threshold |
 | **Query 4** | Aggregation (`GROUP BY` + `SUM`) | Calculates total salary per department |
+| **Query 5** | Aggregation + Sorting (`AVG`, `COUNT`, `ORDER BY`) | Department stats: employee count, average salary, total salary |
 
 ---
 
@@ -38,6 +39,7 @@ When you run the script, it generates the following CSV files:
 | `employees_with_budgets.csv` | Employees with their department budgets |
 | `high_earners.csv` | Employees earning more than 70,000 |
 | `department_salary_totals.csv` | Total salary per department |
+| `department_stats.csv` | Department statistics (count, average salary, total salary) |
 
 ---
 
