@@ -1,0 +1,170 @@
+import sqlite3
+import csv
+
+# ============================================
+# 1. CREATE DATABASE AND CONNECT
+# ============================================
+conn = sqlite3.connect('my_data.db')
+cursor = conn.cursor()
+
+# ============================================
+# 2. CREATE TABLE: employees
+# ============================================
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS employees (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    department TEXT,
+    salary INTEGER
+)
+''')
+
+# ============================================
+# 3. INSERT SAMPLE DATA INTO employees
+# ============================================
+sample_data = [
+    (1, 'Alice', 'Engineering', 75000),
+    (2, 'Bob', 'Marketing', 65000),
+    (3, 'Charlie', 'Engineering', 80000)
+]
+cursor.executemany('INSERT OR IGNORE INTO employees VALUES (?,?,?,?)', sample_data)
+conn.commit()
+
+# ============================================
+# 4. CREATE TABLE: departments
+# ============================================
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS departments (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    budget INTEGER
+)
+''')
+
+# ============================================
+# 5. INSERT SAMPLE DATA INTO departments
+# ============================================
+dept_data = [
+    (1, 'Engineering', 500000),
+    (2, 'Marketing', 300000),
+    (3, 'Finance', 400000)
+]
+cursor.executemany('INSERT OR IGNORE INTO departments VALUES (?,?,?)', dept_data)
+conn.commit()
+
+# ============================================
+# 6. QUERY 1: Basic Filter (WHERE)
+# ============================================
+query1 = "SELECT name, department FROM employees WHERE department = 'Engineering'"
+cursor.execute(query1)
+engineering_team = cursor.fetchall()
+
+with open('engineering_team.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Name', 'Department'])
+    writer.writerows(engineering_team)
+
+print("Query 1 successful! Results saved to 'engineering_team.csv'")
+
+# ============================================
+# 7. QUERY 2: Join Two Tables (JOIN)
+# ============================================
+query2 = """
+SELECT employees.name, employees.department, departments.budget
+FROM employees
+JOIN departments ON employees.department = departments.name
+"""
+cursor.execute(query2)
+join_results = cursor.fetchall()
+
+with open('employees_with_budgets.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Name', 'Department', 'Budget'])
+    writer.writerows(join_results)
+
+print("Query 2 successful! Results saved to 'employees_with_budgets.csv'")
+
+# ============================================
+# 8. QUERY 3: Filter with Comparison (WHERE >)
+# ============================================
+query3 = "SELECT name, department, salary FROM employees WHERE salary > 70000"
+cursor.execute(query3)
+high_earners = cursor.fetchall()
+
+with open('high_earners.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Name', 'Department', 'Salary'])
+    writer.writerows(high_earners)
+
+print("Query 3 successful! Results saved to 'high_earners.csv'")
+
+# ============================================
+# 9. QUERY 4: Aggregation (GROUP BY + SUM)
+# ============================================
+query4 = """
+SELECT department, SUM(salary) as total_salary
+FROM employees
+GROUP BY department
+"""
+cursor.execute(query4)
+dept_salary = cursor.fetchall()
+
+with open('department_salary_totals.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Department', 'Total Salary'])
+    writer.writerows(dept_salary)
+
+print("Query 4 successful! Results saved to 'department_salary_totals.csv'")
+
+# ============================================
+# 10. QUERY 5: Aggregation + Sorting (GROUP BY + AVG + COUNT + ORDER BY)
+# ============================================
+query5 = """
+SELECT 
+    department, 
+    COUNT(*) as employee_count, 
+    AVG(salary) as avg_salary,
+    SUM(salary) as total_salary
+FROM employees
+GROUP BY department
+ORDER BY avg_salary DESC
+"""
+cursor.execute(query5)
+dept_stats = cursor.fetchall()
+
+with open('department_stats.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Department', 'Employee Count', 'Average Salary', 'Total Salary'])
+    writer.writerows(dept_stats)
+
+print("Query 5 successful! Results saved to 'department_stats.csv'")
+
+# ============================================
+# 11. CLOSE CONNECTION
+# ============================================
+# ============================================
+# 12. QUERY 6: Departments with average salary > 70,000 (HAVING)
+# ============================================
+query6 = """
+SELECT 
+    department, 
+    COUNT(*) as employee_count, 
+    AVG(salary) as avg_salary
+FROM employees
+GROUP BY department
+HAVING AVG(salary) > 70000
+"""
+cursor.execute(query6)
+high_avg_depts = cursor.fetchall()
+
+# Save to CSV
+with open('high_avg_departments.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Department', 'Employee Count', 'Average Salary'])
+    writer.writerows(high_avg_depts)
+
+print("Query 6 successful! Results saved to 'high_avg_departments.csv'") 
+
+conn.close()
+
+print("All queries executed successfully!")
