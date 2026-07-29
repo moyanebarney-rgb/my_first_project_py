@@ -140,10 +140,7 @@ with open('department_stats.csv', 'w', newline='') as file:
 print("Query 5 successful! Results saved to 'department_stats.csv'")
 
 # ============================================
-# 11. CLOSE CONNECTION
-# ============================================
-# ============================================
-# 12. QUERY 6: Departments with average salary > 70,000 (HAVING)
+# 11. QUERY 6: Departments with average salary > 70,000 (HAVING)
 # ============================================
 query6 = """
 SELECT 
@@ -157,13 +154,59 @@ HAVING AVG(salary) > 70000
 cursor.execute(query6)
 high_avg_depts = cursor.fetchall()
 
-# Save to CSV
 with open('high_avg_departments.csv', 'w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(['Department', 'Employee Count', 'Average Salary'])
     writer.writerows(high_avg_depts)
 
-print("Query 6 successful! Results saved to 'high_avg_departments.csv'") 
+print("Query 6 successful! Results saved to 'high_avg_departments.csv'")
+
+# ============================================
+# 12. QUERY 7: Rank departments by total salary (ORDER BY DESC)
+# ============================================
+query7 = """
+SELECT 
+    department, 
+    SUM(salary) as total_salary
+FROM employees
+GROUP BY department
+ORDER BY total_salary DESC
+"""
+cursor.execute(query7)
+ranked_depts = cursor.fetchall()
+
+with open('ranked_departments.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Department', 'Total Salary'])
+    writer.writerows(ranked_depts)
+
+print("Query 7 successful! Results saved to 'ranked_departments.csv'")
+
+# ============================================
+# 13. CLOSE CONNECTION
+# ============================================
+# ============================================
+# 14. QUERY 8: Employees earning above departmental average (Subquery)
+# ============================================
+query8 = """
+SELECT 
+    name,
+    department,
+    salary,
+    (SELECT AVG(salary) FROM employees e2 WHERE e2.department = e1.department) as dept_avg
+FROM employees e1
+WHERE salary > (SELECT AVG(salary) FROM employees e2 WHERE e2.department = e1.department)
+"""
+cursor.execute(query8)
+above_avg = cursor.fetchall()
+
+# Save to CSV
+with open('above_dept_avg.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Name', 'Department', 'Salary', 'Dept Average'])
+    writer.writerows(above_avg)
+
+print("Query 8 successful! Results saved to 'above_dept_avg.csv'")
 
 conn.close()
 
