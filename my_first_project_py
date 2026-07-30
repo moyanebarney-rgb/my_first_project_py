@@ -1,40 +1,61 @@
-import sqlite3
-import csv
+# my_first_project_py
 
-# ============================================
-# 1. CREATE DATABASE AND CONNECT
-# ============================================
-conn = sqlite3.connect('my_data.db')
-cursor = conn.cursor()
+A beginner-friendly Python and SQL project that demonstrates core data analysis skills: creating a database, writing queries, and exporting results to CSV.
 
-# ============================================
-# 2. CREATE TABLE: employees
-# ============================================
-cursor.execute('''
-CREATE TABLE IF NOT EXISTS employees (
-    id INTEGER PRIMARY KEY,
-    name TEXT,
-    department TEXT,
-    salary INTEGER
-)
-''')
+---
 
-# ============================================
-# 3. INSERT SAMPLE DATA INTO employees
-# ============================================
-sample_data = [
-    (1, 'Alice', 'Engineering', 75000),
-    (2, 'Bob', 'Marketing', 65000),
-    (3, 'Charlie', 'Engineering', 80000)
-]
-cursor.executemany('INSERT OR IGNORE INTO employees VALUES (?,?,?,?)', sample_data)
-conn.commit()
+## 📌 What This Project Does
 
-# ============================================
-# 4. CREATE TABLE: departments
-# ============================================
-cursor.execute('''
-CREATE TABLE IF NOT EXISTS departments (
+This project simulates a simple employee and department database. It demonstrates:
+
+- Creating a SQLite database and tables
+- Inserting sample data
+- Writing and executing SQL queries
+- Exporting query results to CSV files
+
+---
+
+## 📊 The Queries
+
+This project includes **nine SQL queries** that build on each other:
+
+| Query | Type | What It Does |
+| :--- | :--- | :--- |
+| **Query 1** | Basic Filter (`WHERE`) | Filters employees by department |
+| **Query 2** | Table Join (`JOIN`) | Combines employee and department data |
+| **Query 3** | Comparison Filter (`WHERE >`) | Finds employees earning above a threshold |
+| **Query 4** | Aggregation (`GROUP BY` + `SUM`) | Calculates total salary per department |
+| **Query 5** | Aggregation + Sorting (`AVG`, `COUNT`, `ORDER BY`) | Department stats: employee count, average salary, total salary |
+| **Query 6** | Filtered Aggregation (`HAVING`) | Departments where average salary exceeds 70,000 |
+| **Query 7** | Ranking (`ORDER BY DESC`) | Departments ranked by total salary (highest first) |
+| **Query 8** | Subquery | Employees earning above their department's average salary |
+| **Query 9** | Common Table Expression (`WITH` / CTE) | Department averages compared to overall company average |
+
+---
+
+## 📁 Files Generated
+
+When you run the script, it generates the following CSV files:
+
+| File | Description |
+| :--- | :--- |
+| `engineering_team.csv` | Employees in the Engineering department |
+| `employees_with_budgets.csv` | Employees with their department budgets |
+| `high_earners.csv` | Employees earning more than 70,000 |
+| `department_salary_totals.csv` | Total salary per department |
+| `department_stats.csv` | Department statistics (count, average salary, total salary) |
+| `high_avg_departments.csv` | Departments where average salary > 70,000 |
+| `ranked_departments.csv` | Departments ranked by total salary (highest first) |
+| `above_dept_avg.csv` | Employees earning above their department's average salary |
+| `dept_vs_overall_avg.csv` | Department averages compared to the overall company average |
+
+---
+
+## 🚀 How to Run It
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/moyanebarney-rgb/my_first_project_py.gitCREATE TABLE IF NOT EXISTS departments (
     id INTEGER PRIMARY KEY,
     name TEXT,
     budget INTEGER
