@@ -208,6 +208,39 @@ with open('above_dept_avg.csv', 'w', newline='') as file:
 
 print("Query 8 successful! Results saved to 'above_dept_avg.csv'")
 
+# ============================================
+# 15. QUERY 9: Department averages vs overall average (CTE)
+# ============================================
+query9 = """
+WITH dept_avg AS (
+    SELECT 
+        department, 
+        AVG(salary) as avg_salary
+    FROM employees
+    GROUP BY department
+),
+overall_avg AS (
+    SELECT AVG(salary) as overall_avg FROM employees
+)
+SELECT 
+    dept_avg.department,
+    dept_avg.avg_salary,
+    overall_avg.overall_avg,
+    ROUND((dept_avg.avg_salary - overall_avg.overall_avg), 2) as difference
+FROM dept_avg, overall_avg
+ORDER BY difference DESC
+"""
+cursor.execute(query9)
+dept_comparison = cursor.fetchall()
+
+# Save to CSV
+with open('dept_vs_overall_avg.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Department', 'Dept Average', 'Overall Average', 'Difference'])
+    writer.writerows(dept_comparison)
+
+print("Query 9 successful! Results saved to 'dept_vs_overall_avg.csv'")
+
 conn.close()
 
 print("All queries executed successfully!")
