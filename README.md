@@ -1,3 +1,19 @@
+## 📂 Repository Structure
+
+my_first_project_py/
+├── my_first_project.py          # Main Python script
+├── README.md                    # This file
+├── engineering_team.csv         # Output from Query 1
+├── employees_with_budgets.csv   # Output from Query 2
+├── high_earners.csv             # Output from Query 3
+├── department_salary_totals.csv # Output from Query 4
+├── department_stats.csv         # Output from Query 5
+├── high_avg_departments.csv     # Output from Query 6
+├── ranked_departments.csv       # Output from Query 7
+├── above_dept_avg.csv           # Output from Query 8
+├── dept_vs_overall_avg.csv      # Output from Query 9
+└── my_data.db                   # SQLite database (generated)
+
 # my_first_project_py
 
 A beginner-friendly Python and SQL project that demonstrates core data analysis skills: creating a database, writing queries, and exporting results to CSV.
