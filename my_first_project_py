@@ -1,249 +1,268 @@
-```markdown
-# my_first_project_py
-
-A beginner-friendly Python and SQL project that demonstrates core data analysis skills: creating a database, writing queries, and exporting results to CSV.
-
----
-
-## 📌 What This Project Does
-
-This project simulates a simple employee and department database. It demonstrates:
-
-- Creating a SQLite database and tables
-- Inserting sample data
-- Writing and executing SQL queries
-- Exporting query results to CSV files
-
----
-
-## 📊 The Queries
-
-This project includes **nine SQL queries** that build on each other:
-
-| Query | Type | What It Does |
-| :--- | :--- | :--- |
-| **Query 1** | Basic Filter (`WHERE`) | Filters employees by department |
-| **Query 2** | Table Join (`JOIN`) | Combines employee and department data |
-| **Query 3** | Comparison Filter (`WHERE >`) | Finds employees earning above a threshold |
-| **Query 4** | Aggregation (`GROUP BY` + `SUM`) | Calculates total salary per department |
-| **Query 5** | Aggregation + Sorting (`AVG`, `COUNT`, `ORDER BY`) | Department stats: employee count, average salary, total salary |
-| **Query 6** | Filtered Aggregation (`HAVING`) | Departments where average salary exceeds 70,000 |
-| **Query 7** | Ranking (`ORDER BY DESC`) | Departments ranked by total salary (highest first) |
-| **Query 8** | Subquery | Employees earning above their department's average salary |
-| **Query 9** | Common Table Expression (`WITH` / CTE) | Department averages compared to overall company average |
-
----
-
-## 📁 Files Generated
-
-When you run the script, it generates the following CSV files:
-
-| File | Description |
-| :--- | :--- |
-| `engineering_team.csv` | Employees in the Engineering department |
-| `employees_with_budgets.csv` | Employees with their department budgets |
-| `high_earners.csv` | Employees earning more than 70,000 |
-| `department_salary_totals.csv` | Total salary per department |
-| `department_stats.csv` | Department statistics (count, average salary, total salary) |
-| `high_avg_departments.csv` | Departments where average salary > 70,000 |
-| `ranked_departments.csv` | Departments ranked by total salary (highest first) |
-| `above_dept_avg.csv` | Employees earning above their department's average salary |
-| `dept_vs_overall_avg.csv` | Department averages compared to the overall company average |
-
----
-
-## 🚀 How to Run It
-
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/moyanebarney-rgb/my_first_project_py.git
-   ```
-
-2. Run the script in a Python environment:
-   ```bash
-   python my_first_project.py
-   ```
-
-3. The script will generate nine CSV files with the query results.
-
----
-
-## 🧠 Why This Matters
-
-These are the same skills used in fiscal data analysis:
-
-- Filtering to isolate specific departments or spending categories
-- Joining to combine datasets (e.g., linking SOE financials to budget allocations)
-- Aggregating to calculate totals (e.g., total maintenance spend per SOE)
-- Sorting to identify highest-cost areas
-- Filtering aggregates to find departments or categories that exceed thresholds
-- Ranking to compare performance or spending across categories
-- Subqueries to compare individual performance against averages
-- Common Table Expressions (CTEs) to structure complex fiscal reports
-
-This project is a foundation for more advanced data work in public finance and infrastructure economics.
-
----
-
-## 📂 Repository Structure
-
-```
-my_first_project_py/
-├── my_first_project.py          # Main Python script
-├── README.md                    # This file
-├── engineering_team.csv         # Output from Query 1
-├── employees_with_budgets.csv   # Output from Query 2
-├── high_earners.csv             # Output from Query 3
-├── department_salary_totals.csv # Output from Query 4
-├── department_stats.csv         # Output from Query 5
-├── high_avg_departments.csv     # Output from Query 6
-├── ranked_departments.csv       # Output from Query 7
-├── above_dept_avg.csv           # Output from Query 8
-├── dept_vs_overall_avg.csv      # Output from Query 9
-└── my_data.db                   # SQLite database (generated)
-```
-
----
-
-## 📧 Author
-
-**Samkele Barney Moyane**  
-Aspiring Fiscal Technocrat | Infrastructure Economics | Data Analysis
-
----
-
-## 📝 License
-
-This project is for educational and portfolio purposes.
-```
-
-### Instructions again (quick)
-
-1. Open `README.md` → pencil icon  
-2. Select **all** existing content and delete it  
-3. Paste the full block above  
-4. Commit message: `Clean and complete README`  
-5. Commit changes  
-
-After you do this, send me the link again and I’ll confirm it’s clean.Here’s the **complete, clean README** ready to copy-paste.  
-
-Make sure you delete **everything** currently in the file first, then paste this entire block:
-
-```markdown
-# my_first_project_py
-
-A beginner-friendly Python and SQL project that demonstrates core data analysis skills: creating a database, writing queries, and exporting results to CSV.
-
----
-
-## 📌 What This Project Does
-
-This project simulates a simple employee and department database. It demonstrates:
-
-- Creating a SQLite database and tables
-- Inserting sample data
-- Writing and executing SQL queries
-- Exporting query results to CSV files
-
----
-
-## 📊 The Queries
-
-This project includes **nine SQL queries** that build on each other:
-
-| Query | Type | What It Does |
-| :--- | :--- | :--- |
-| **Query 1** | Basic Filter (`WHERE`) | Filters employees by department |
-| **Query 2** | Table Join (`JOIN`) | Combines employee and department data |
-| **Query 3** | Comparison Filter (`WHERE >`) | Finds employees earning above a threshold |
-| **Query 4** | Aggregation (`GROUP BY` + `SUM`) | Calculates total salary per department |
-| **Query 5** | Aggregation + Sorting (`AVG`, `COUNT`, `ORDER BY`) | Department stats: employee count, average salary, total salary |
-| **Query 6** | Filtered Aggregation (`HAVING`) | Departments where average salary exceeds 70,000 |
-| **Query 7** | Ranking (`ORDER BY DESC`) | Departments ranked by total salary (highest first) |
-| **Query 8** | Subquery | Employees earning above their department's average salary |
-| **Query 9** | Common Table Expression (`WITH` / CTE) | Department averages compared to overall company average |
-
----
-
-## 📁 Files Generated
-
-When you run the script, it generates the following CSV files:
-
-| File | Description |
-| :--- | :--- |
-| `engineering_team.csv` | Employees in the Engineering department |
-| `employees_with_budgets.csv` | Employees with their department budgets |
-| `high_earners.csv` | Employees earning more than 70,000 |
-| `department_salary_totals.csv` | Total salary per department |
-| `department_stats.csv` | Department statistics (count, average salary, total salary) |
-| `high_avg_departments.csv` | Departments where average salary > 70,000 |
-| `ranked_departments.csv` | Departments ranked by total salary (highest first) |
-| `above_dept_avg.csv` | Employees earning above their department's average salary |
-| `dept_vs_overall_avg.csv` | Department averages compared to the overall company average |
-
----
-
-## 🚀 How to Run It
-
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/moyanebarney-rgb/my_first_project_py.git
-   ```
-
-2. Run the script in a Python environment:
-   ```bash
-   python my_first_project.py
-   ```
-
-3. The script will generate nine CSV files with the query results.
-
----
-
-## 🧠 Why This Matters
-
-These are the same skills used in fiscal data analysis:
-
-- Filtering to isolate specific departments or spending categories
-- Joining to combine datasets (e.g., linking SOE financials to budget allocations)
-- Aggregating to calculate totals (e.g., total maintenance spend per SOE)
-- Sorting to identify highest-cost areas
-- Filtering aggregates to find departments or categories that exceed thresholds
-- Ranking to compare performance or spending across categories
-- Subqueries to compare individual performance against averages
-- Common Table Expressions (CTEs) to structure complex fiscal reports
-
-This project is a foundation for more advanced data work in public finance and infrastructure economics.
-
----
-
-## 📂 Repository Structure
-
-```
-my_first_project_py/
-├── my_first_project.py          # Main Python script
-├── README.md                    # This file
-├── engineering_team.csv         # Output from Query 1
-├── employees_with_budgets.csv   # Output from Query 2
-├── high_earners.csv             # Output from Query 3
-├── department_salary_totals.csv # Output from Query 4
-├── department_stats.csv         # Output from Query 5
-├── high_avg_departments.csv     # Output from Query 6
-├── ranked_departments.csv       # Output from Query 7
-├── above_dept_avg.csv           # Output from Query 8
-├── dept_vs_overall_avg.csv      # Output from Query 9
-└── my_data.db                   # SQLite database (generated)
-```
-
----
-
-## 📧 Author
-
-**Samkele Barney Moyane**  
-Aspiring Fiscal Technocrat | Infrastructure Economics | Data Analysis
-
----
-
-## 📝 License
-
-This project is for educational and portfolio purposes.
-```
+import sqlite3
+import csv
+
+# ============================================
+# 1. CREATE DATABASE AND CONNECT
+# ============================================
+conn = sqlite3.connect('my_data.db')
+cursor = conn.cursor()
+
+# ============================================
+# 2. CREATE TABLE: employees
+# ============================================
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS employees (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    department TEXT,
+    salary INTEGER
+)
+''')
+
+# ============================================
+# 3. INSERT SAMPLE DATA INTO employees
+# ============================================
+sample_data = [
+    (1, 'Alice', 'Engineering', 75000),
+    (2, 'Bob', 'Marketing', 65000),
+    (3, 'Charlie', 'Engineering', 80000)
+]
+cursor.executemany('INSERT OR IGNORE INTO employees VALUES (?,?,?,?)', sample_data)
+conn.commit()
+
+# ============================================
+# 4. CREATE TABLE: departments
+# ============================================
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS departments (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    budget INTEGER
+)
+''')
+
+# ============================================
+# 5. INSERT SAMPLE DATA INTO departments
+# ============================================
+dept_data = [
+    (1, 'Engineering', 500000),
+    (2, 'Marketing', 300000),
+    (3, 'Finance', 400000)
+]
+cursor.executemany('INSERT OR IGNORE INTO departments VALUES (?,?,?)', dept_data)
+conn.commit()
+
+# ============================================
+# 6. QUERY 1: Basic Filter (WHERE)
+# ============================================
+query1 = "SELECT name, department FROM employees WHERE department = 'Engineering'"
+cursor.execute(query1)
+engineering_team = cursor.fetchall()
+
+with open('engineering_team.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Name', 'Department'])
+    writer.writerows(engineering_team)
+
+print("Query 1 successful! Results saved to 'engineering_team.csv'")
+
+# ============================================
+# 7. QUERY 2: Join Two Tables (JOIN)
+# ============================================
+query2 = """
+SELECT employees.name, employees.department, departments.budget
+FROM employees
+JOIN departments ON employees.department = departments.name
+"""
+cursor.execute(query2)
+join_results = cursor.fetchall()
+
+with open('employees_with_budgets.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Name', 'Department', 'Budget'])
+    writer.writerows(join_results)
+
+print("Query 2 successful! Results saved to 'employees_with_budgets.csv'")
+
+# ============================================
+# 8. QUERY 3: Filter with Comparison (WHERE >)
+# ============================================
+query3 = "SELECT name, department, salary FROM employees WHERE salary > 70000"
+cursor.execute(query3)
+high_earners = cursor.fetchall()
+
+with open('high_earners.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Name', 'Department', 'Salary'])
+    writer.writerows(high_earners)
+
+print("Query 3 successful! Results saved to 'high_earners.csv'")
+
+# ============================================
+# 9. QUERY 4: Aggregation (GROUP BY + SUM)
+# ============================================
+query4 = """
+SELECT department, SUM(salary) as total_salary
+FROM employees
+GROUP BY department
+"""
+cursor.execute(query4)
+dept_salary = cursor.fetchall()
+
+with open('department_salary_totals.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Department', 'Total Salary'])
+    writer.writerows(dept_salary)
+
+print("Query 4 successful! Results saved to 'department_salary_totals.csv'")
+
+# ============================================
+# 10. QUERY 5: Aggregation + Sorting (GROUP BY + AVG + COUNT + ORDER BY)
+# ============================================
+query5 = """
+SELECT
+    department,
+    COUNT(*) as employee_count,
+    AVG(salary) as avg_salary,
+    SUM(salary) as total_salary
+FROM employees
+GROUP BY department
+ORDER BY avg_salary DESC
+"""
+cursor.execute(query5)
+dept_stats = cursor.fetchall()
+
+with open('department_stats.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Department', 'Employee Count', 'Average Salary', 'Total Salary'])
+    writer.writerows(dept_stats)
+
+print("Query 5 successful! Results saved to 'department_stats.csv'")
+
+# ============================================
+# 11. QUERY 6: Departments with average salary > 70,000 (HAVING)
+# ============================================
+query6 = """
+SELECT
+    department,
+    COUNT(*) as employee_count,
+    AVG(salary) as avg_salary
+FROM employees
+GROUP BY department
+HAVING AVG(salary) > 70000
+"""
+cursor.execute(query6)
+high_avg_depts = cursor.fetchall()
+
+with open('high_avg_departments.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Department', 'Employee Count', 'Average Salary'])
+    writer.writerows(high_avg_depts)
+
+print("Query 6 successful! Results saved to 'high_avg_departments.csv'")
+
+# ============================================
+# 12. QUERY 7: Rank departments by total salary (ORDER BY DESC)
+# ============================================
+query7 = """
+SELECT
+    department,
+    SUM(salary) as total_salary
+FROM employees
+GROUP BY department
+ORDER BY total_salary DESC
+"""
+cursor.execute(query7)
+ranked_depts = cursor.fetchall()
+
+with open('ranked_departments.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Department', 'Total Salary'])
+    writer.writerows(ranked_depts)
+
+print("Query 7 successful! Results saved to 'ranked_departments.csv'")
+
+# ============================================
+# 13. CLOSE CONNECTION
+# ============================================
+# ============================================
+# 14. QUERY 8: Employees earning above departmental average (Subquery)
+# ============================================
+query8 = """
+SELECT
+    name,
+    department,
+    salary,
+    (SELECT AVG(salary) FROM employees e2 WHERE e2.department = e1.department) as dept_avg
+FROM employees e1
+WHERE salary > (SELECT AVG(salary) FROM employees e2 WHERE e2.department = e1.department)
+"""
+cursor.execute(query8)
+above_avg = cursor.fetchall()
+
+# Save to CSV
+with open('above_dept_avg.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Name', 'Department', 'Salary', 'Dept Average'])
+    writer.writerows(above_avg)
+
+print("Query 8 successful! Results saved to 'above_dept_avg.csv'")
+
+# ============================================
+# 15. QUERY 9: Department averages vs overall average (CTE)
+# ============================================
+query9 = """
+WITH dept_avg AS (
+    SELECT
+        department,
+        AVG(salary) as avg_salary
+    FROM employees
+    GROUP BY department
+),
+overall_avg AS (
+    SELECT AVG(salary) as overall_avg FROM employees
+)
+SELECT
+    dept_avg.department,
+    dept_avg.avg_salary,
+    overall_avg.overall_avg,
+    ROUND((dept_avg.avg_salary - overall_avg.overall_avg), 2) as difference
+FROM dept_avg, overall_avg
+ORDER BY difference DESC
+"""
+cursor.execute(query9)
+dept_comparison = cursor.fetchall()
+
+# Save to CSV
+with open('dept_vs_overall_avg.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Department', 'Dept Average', 'Overall Average', 'Difference'])
+    writer.writerows(dept_comparison)
+
+print("Query 9 successful! Results saved to 'dept_vs_overall_avg.csv'")
+
+# ============================================
+# 16. QUERY 10: Rank employees by salary within department (Window Function)
+# ============================================
+query10 = """
+SELECT 
+    name,
+    department,
+    salary,
+    ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) as rank_in_dept
+FROM employees
+"""
+cursor.execute(query10)
+ranked_employees = cursor.fetchall()
+
+# Save to CSV
+with open('ranked_employees.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Name', 'Department', 'Salary', 'Rank in Dept'])
+    writer.writerows(ranked_employees)
+
+print("Query 10 successful! Results saved to 'ranked_employees.csv'")
+
+conn.close()
+
+print("All queries executed successfully!")
