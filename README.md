@@ -1,9 +1,6 @@
-```markdown
 # my_first_project_py
 
 A beginner-friendly Python and SQL project that demonstrates core data analysis skills: creating a database, writing queries, and exporting results to CSV.
-
----
 
 ## 📌 What This Project Does
 
@@ -14,18 +11,52 @@ This project simulates a simple employee and department database. It demonstrate
 - Writing and executing SQL queries
 - Exporting query results to CSV files
 
----
-
 ## 📊 The Queries
 
-This project includes **ten SQL queries** that build on each other:
+This project includes **fourteen SQL queries** that build on each other:
 
 | Query | Type | What It Does |
 | :--- | :--- | :--- |
-| **Query 1** | Basic Filter (`WHERE`) | Filters employees by department |
-| **Query 2** | Table Join (`JOIN`) | Combines employee and department data |
-| **Query 3** | Comparison Filter (`WHERE >`) | Finds employees earning above a threshold |
-| **Query 4** | Aggregation (`GROUP BY` + `SUM`) | Calculates total salary per department |
+| **1** | `WHERE` | Filters employees by department |
+| **2** | `JOIN` | Combines employee and department data |
+| **3** | `WHERE >` | Finds employees earning above a threshold |
+| **4** | `GROUP BY` + `SUM` | Total salary per department |
+| **5** | `AVG`, `COUNT`, `ORDER BY` | Department stats |
+| **6** | `HAVING` | Departments with avg salary > 70,000 |
+| **7** | `ORDER BY DESC` | Departments ranked by total salary |
+| **8** | Subquery | Employees above departmental average |
+| **9** | CTE | Dept averages vs overall average |
+| **10** | `ROW_NUMBER()` | Rank employees within department |
+| **11** | `LEAD()` / `LAG()` | Compare to next/previous salary |
+| **12** | `RANK()` / `DENSE_RANK()` | Compare ranking methods |
+| **13** | `CASE WHEN` | High/low earner percentages |
+| **14** | Outlier Detection | Employees above 120% of dept average |
+
+## 📁 Files Generated
+
+| File | Description |
+| :--- | :--- |
+| `engineering_team.csv` | Employees in Engineering |
+| `employees_with_budgets.csv` | Employees with department budgets |
+| `high_earners.csv` | Employees earning > 70,000 |
+| `department_salary_totals.csv` | Total salary per department |
+| `department_stats.csv` | Department stats |
+| `high_avg_departments.csv` | Departments with avg salary > 70,000 |
+| `ranked_departments.csv` | Departments ranked by total salary |
+| `above_dept_avg.csv` | Employees above departmental average |
+| `dept_vs_overall_avg.csv` | Dept averages vs overall average |
+| `ranked_employees.csv` | Employees ranked within department |
+| `salary_comparison.csv` | LEAD/LAG salary comparison |
+| `rank_comparison.csv` | RANK vs DENSE_RANK |
+| `conditional_aggregation.csv` | High/low earner percentages |
+| `salary_outliers.csv` | Salary outliers |
+
+## 🚀 How to Run It
+
+```bash
+git clone https://github.com/moyanebarney-rgb/my_first_project_py.git
+cd my_first_project_py
+python my_first_project.py| **Query 4** | Aggregation (`GROUP BY` + `SUM`) | Calculates total salary per department |
 | **Query 5** | Aggregation + Sorting (`AVG`, `COUNT`, `ORDER BY`) | Department stats: employee count, average salary, total salary |
 | **Query 6** | Filtered Aggregation (`HAVING`) | Departments where average salary exceeds 70,000 |
 | **Query 7** | Ranking (`ORDER BY DESC`) | Departments ranked by total salary (highest first) |
