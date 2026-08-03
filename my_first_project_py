@@ -183,10 +183,7 @@ with open('ranked_departments.csv', 'w', newline='') as file:
 print("Query 7 successful! Results saved to 'ranked_departments.csv'")
 
 # ============================================
-# 13. CLOSE CONNECTION
-# ============================================
-# ============================================
-# 14. QUERY 8: Employees earning above departmental average (Subquery)
+# 13. QUERY 8: Employees earning above departmental average (Subquery)
 # ============================================
 query8 = """
 SELECT
@@ -200,7 +197,6 @@ WHERE salary > (SELECT AVG(salary) FROM employees e2 WHERE e2.department = e1.de
 cursor.execute(query8)
 above_avg = cursor.fetchall()
 
-# Save to CSV
 with open('above_dept_avg.csv', 'w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(['Name', 'Department', 'Salary', 'Dept Average'])
@@ -209,7 +205,7 @@ with open('above_dept_avg.csv', 'w', newline='') as file:
 print("Query 8 successful! Results saved to 'above_dept_avg.csv'")
 
 # ============================================
-# 15. QUERY 9: Department averages vs overall average (CTE)
+# 14. QUERY 9: Department averages vs overall average (CTE)
 # ============================================
 query9 = """
 WITH dept_avg AS (
@@ -233,7 +229,6 @@ ORDER BY difference DESC
 cursor.execute(query9)
 dept_comparison = cursor.fetchall()
 
-# Save to CSV
 with open('dept_vs_overall_avg.csv', 'w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(['Department', 'Dept Average', 'Overall Average', 'Difference'])
@@ -242,7 +237,7 @@ with open('dept_vs_overall_avg.csv', 'w', newline='') as file:
 print("Query 9 successful! Results saved to 'dept_vs_overall_avg.csv'")
 
 # ============================================
-# 16. QUERY 10: Rank employees by salary within department (Window Function)
+# 15. QUERY 10: Rank employees by salary within department (ROW_NUMBER)
 # ============================================
 query10 = """
 SELECT 
@@ -255,7 +250,6 @@ FROM employees
 cursor.execute(query10)
 ranked_employees = cursor.fetchall()
 
-# Save to CSV
 with open('ranked_employees.csv', 'w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(['Name', 'Department', 'Salary', 'Rank in Dept'])
@@ -263,6 +257,101 @@ with open('ranked_employees.csv', 'w', newline='') as file:
 
 print("Query 10 successful! Results saved to 'ranked_employees.csv'")
 
+# ============================================
+# 16. QUERY 11: Compare salary to next highest earner (LEAD/LAG)
+# ============================================
+query11 = """
+SELECT 
+    name,
+    department,
+    salary,
+    LAG(salary) OVER (PARTITION BY department ORDER BY salary DESC) as previous_salary,
+    LEAD(salary) OVER (PARTITION BY department ORDER BY salary DESC) as next_salary
+FROM employees
+"""
+cursor.execute(query11)
+salary_comparison = cursor.fetchall()
+
+with open('salary_comparison.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Name', 'Department', 'Salary', 'Previous Salary', 'Next Salary'])
+    writer.writerows(salary_comparison)
+
+print("Query 11 successful! Results saved to 'salary_comparison.csv'")
+
+# ============================================
+# 17. QUERY 12: RANK vs DENSE_RANK (Window Functions)
+# ============================================
+query12 = """
+SELECT 
+    name,
+    department,
+    salary,
+    RANK() OVER (PARTITION BY department ORDER BY salary DESC) as rank,
+    DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) as dense_rank
+FROM employees
+"""
+cursor.execute(query12)
+rank_comparison = cursor.fetchall()
+
+with open('rank_comparison.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Name', 'Department', 'Salary', 'Rank', 'Dense Rank'])
+    writer.writerows(rank_comparison)
+
+print("Query 12 successful! Results saved to 'rank_comparison.csv'")
+
+# ============================================
+# 18. QUERY 13: Conditional Aggregation (CASE WHEN)
+# ============================================
+query13 = """
+SELECT 
+    department,
+    COUNT(*) as total_employees,
+    SUM(CASE WHEN salary > 70000 THEN 1 ELSE 0 END) as high_earners,
+    SUM(CASE WHEN salary <= 70000 THEN 1 ELSE 0 END) as low_earners,
+    ROUND(100.0 * SUM(CASE WHEN salary > 70000 THEN 1 ELSE 0 END) / COUNT(*), 2) as high_earner_pct
+FROM employees
+GROUP BY department
+"""
+cursor.execute(query13)
+conditional_agg = cursor.fetchall()
+
+with open('conditional_aggregation.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Department', 'Total Employees', 'High Earners', 'Low Earners', 'High Earner %'])
+    writer.writerows(conditional_agg)
+
+print("Query 13 successful! Results saved to 'conditional_aggregation.csv'")
+
+# ============================================
+# 19. QUERY 14: Salary Outlier Detection
+# ============================================
+query14 = """
+SELECT 
+    e1.name,
+    e1.department,
+    e1.salary,
+    ROUND((SELECT AVG(salary) FROM employees e2 WHERE e2.department = e1.department), 2) as dept_avg,
+    ROUND(e1.salary - (SELECT AVG(salary) FROM employees e2 WHERE e2.department = e1.department), 2) as difference,
+    ROUND(100.0 * (e1.salary - (SELECT AVG(salary) FROM employees e2 WHERE e2.department = e1.department)) / 
+          (SELECT AVG(salary) FROM employees e2 WHERE e2.department = e1.department), 2) as pct_above_avg
+FROM employees e1
+WHERE e1.salary > (SELECT AVG(salary) FROM employees e2 WHERE e2.department = e1.department) * 1.2
+"""
+cursor.execute(query14)
+outliers = cursor.fetchall()
+
+with open('salary_outliers.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Name', 'Department', 'Salary', 'Dept Average', 'Difference', '% Above Avg'])
+    writer.writerows(outliers)
+
+print("Query 14 successful! Results saved to 'salary_outliers.csv'")
+
+# ============================================
+# 20. CLOSE CONNECTION
+# ============================================
 conn.close()
 
 print("All queries executed successfully!")
