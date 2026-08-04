@@ -1,0 +1,13 @@
+Name,Department,Salary,Rank,Dense Rank
+Charlie,Engineering,92000,1,1
+Diana,Engineering,85000,2,2
+Alice,Engineering,78000,3,3
+Ethan,Engineering,71000,4,4
+Ian,Finance,95000,1,1
+Hannah,Finance,88000,2,2
+Julia,Finance,72000,3,3
+George,Marketing,75000,1,1
+Fiona,Marketing,68000,2,2
+Bob,Marketing,62000,3,3
+Laura,Operations,64000,1,1
+Kevin,Operations,58000,2,2

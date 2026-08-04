@@ -1,0 +1,13 @@
+Name,Department,Salary,Previous Higher,Next Lower
+Charlie,Engineering,92000,,85000
+Diana,Engineering,85000,92000,78000
+Alice,Engineering,78000,85000,71000
+Ethan,Engineering,71000,78000,
+Ian,Finance,95000,,88000
+Hannah,Finance,88000,95000,72000
+Julia,Finance,72000,88000,
+George,Marketing,75000,,68000
+Fiona,Marketing,68000,75000,62000
+Bob,Marketing,62000,68000,
+Laura,Operations,64000,,58000
+Kevin,Operations,58000,64000,
