@@ -1,4 +1,4 @@
-# my_first_project_py — SQL Portfolio
+# my_first_project.py — SQL Portfolio
 
 A complete Python and SQL project demonstrating data analysis skills: creating a database, writing 14 progressive SQL queries, exporting results, and visualising outliers.
 
@@ -89,8 +89,8 @@ python salary_outliers_visualisation.py| **5** | `AVG`, `COUNT`, `ORDER BY` | De
 ## 🚀 How to Run It
 
 ```bash
-git clone https://github.com/moyanebarney-rgb/my_first_project_py.git
-cd my_first_project_py
+git clone https://github.com/moyanebarney-rgb/my_first_project.py.git
+cd my_first_project.py
 python my_first_project.py| **Query 4** | Aggregation (`GROUP BY` + `SUM`) | Calculates total salary per department |
 | **Query 5** | Aggregation + Sorting (`AVG`, `COUNT`, `ORDER BY`) | Department stats: employee count, average salary, total salary |
 | **Query 6** | Filtered Aggregation (`HAVING`) | Departments where average salary exceeds 70,000 |
@@ -124,7 +124,7 @@ When you run the script, it generates the following CSV files:
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/moyanebarney-rgb/my_first_project_py.git
+   git clone https://github.com/moyanebarney-rgb/my_first_project.py.git
 ```
 
 2. Run the script in a Python environment:
@@ -156,7 +156,7 @@ This project is a foundation for more advanced data work in public finance and i
 📂 Repository Structure
 
 ```
-my_first_project_py/
+my_first_project.py/
 ├── my_first_project.py          # Main Python script
 ├── README.md                    # This file
 ├── engineering_team.csv         # Output from Query 1
@@ -193,7 +193,7 @@ This project is for educational and portfolio purposes.
 
 | Step | Action |
 | :--- | :--- |
-| **1** | Go to your repository: `https://github.com/moyanebarney-rgb/my_first_project_py` |
+| **1** | Go to your repository: `https://github.com/moyanebarney-rgb/my_first_project.py` |
 | **2** | Open `README.md` (click it, then click the pencil icon to edit) |
 | **3** | **Select everything** (Ctrl+A / Cmd+A) |
 | **4** | **Delete everything** |
