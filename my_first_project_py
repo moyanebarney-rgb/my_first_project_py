@@ -38,6 +38,304 @@ CREATE TABLE departments (
 """)
 
 # ============================================
+# 3. INSERT SAMPLE DATA
+# ============================================
+employees = [
+    # Engineering
+    (1,  "Alice",     "Engineering", 78000),
+    (2,  "Charlie",   "Engineering", 92000),
+    (3,  "Diana",     "Engineering", 85000),
+    (4,  "Ethan",     "Engineering", 71000),
+    # Marketing
+    (5,  "Bob",       "Marketing",   62000),
+    (6,  "Fiona",     "Marketing",   68000),
+    (7,  "George",    "Marketing",   75000),
+    # Finance
+    (8,  "Hannah",    "Finance",     88000),
+    (9,  "Ian",       "Finance",     95000),
+    (10, "Julia",     "Finance",     72000),
+    # Operations
+    (11, "Kevin",     "Operations",  58000),
+    (12, "Laura",     "Operations",  64000),
+]
+
+departments = [
+    (1, "Engineering", 650000),
+    (2, "Marketing",   320000),
+    (3, "Finance",     480000),
+    (4, "Operations",  280000),
+]
+
+cursor.executemany("INSERT INTO employees VALUES (?,?,?,?)", employees)
+cursor.executemany("INSERT INTO departments VALUES (?,?,?)", departments)
+conn.commit()
+
+print("✅ Database created and sample data inserted.\n")
+
+# ============================================
+# HELPER FUNCTION
+# ============================================
+def save_query(filename, headers, rows):
+    """Save query results to a CSV file in the outputs folder."""
+    path = os.path.join(OUTPUT_DIR, filename)
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(headers)
+        writer.writerows(rows)
+    print(f"   → Saved: {path}")
+
+# ============================================
+# QUERY 1: Basic Filter (WHERE)
+# ============================================
+print("Running Query 1: Engineering team...")
+cursor.execute("""
+    SELECT name, department
+    FROM employees
+    WHERE department = 'Engineering'
+""")
+save_query("engineering_team.csv",
+           ["Name", "Department"],
+           cursor.fetchall())
+
+# ============================================
+# QUERY 2: JOIN
+# ============================================
+print("Running Query 2: Employees with department budgets...")
+cursor.execute("""
+    SELECT e.name, e.department, d.budget
+    FROM employees e
+    JOIN departments d ON e.department = d.name
+""")
+save_query("employees_with_budgets.csv",
+           ["Name", "Department", "Budget"],
+           cursor.fetchall())
+
+# ============================================
+# QUERY 3: Comparison Filter (WHERE >)
+# ============================================
+print("Running Query 3: High earners (> 70,000)...")
+cursor.execute("""
+    SELECT name, department, salary
+    FROM employees
+    WHERE salary > 70000
+""")
+save_query("high_earners.csv",
+           ["Name", "Department", "Salary"],
+           cursor.fetchall())
+
+# ============================================
+# QUERY 4: Aggregation (SUM)
+# ============================================
+print("Running Query 4: Total salary per department...")
+cursor.execute("""
+    SELECT department, SUM(salary) AS total_salary
+    FROM employees
+    GROUP BY department
+""")
+save_query("department_salary_totals.csv",
+           ["Department", "Total Salary"],
+           cursor.fetchall())
+
+# ============================================
+# QUERY 5: Aggregation + Sorting (AVG, COUNT, ORDER BY)
+# ============================================
+print("Running Query 5: Department statistics...")
+cursor.execute("""
+    SELECT
+        department,
+        COUNT(*) AS employee_count,
+        ROUND(AVG(salary), 2) AS avg_salary,
+        SUM(salary) AS total_salary
+    FROM employees
+    GROUP BY department
+    ORDER BY avg_salary DESC
+""")
+save_query("department_stats.csv",
+           ["Department", "Employee Count", "Average Salary", "Total Salary"],
+           cursor.fetchall())
+
+# ============================================
+# QUERY 6: HAVING (Filter Aggregated Results)
+# ============================================
+print("Running Query 6: Departments with avg salary > 70,000...")
+cursor.execute("""
+    SELECT
+        department,
+        COUNT(*) AS employee_count,
+        ROUND(AVG(salary), 2) AS avg_salary
+    FROM employees
+    GROUP BY department
+    HAVING AVG(salary) > 70000
+""")
+save_query("high_avg_departments.csv",
+           ["Department", "Employee Count", "Average Salary"],
+           cursor.fetchall())
+
+# ============================================
+# QUERY 7: Ranking Departments by Total Salary (ORDER BY DESC)
+# ============================================
+print("Running Query 7: Departments ranked by total salary...")
+cursor.execute("""
+    SELECT
+        department,
+        SUM(salary) AS total_salary
+    FROM employees
+    GROUP BY department
+    ORDER BY total_salary DESC
+""")
+save_query("ranked_departments.csv",
+           ["Department", "Total Salary"],
+           cursor.fetchall())
+
+# ============================================
+# QUERY 8: Subquery – Above Department Average
+# ============================================
+print("Running Query 8: Employees above their department average...")
+cursor.execute("""
+    SELECT
+        e1.name,
+        e1.department,
+        e1.salary,
+        ROUND((SELECT AVG(salary)
+               FROM employees e2
+               WHERE e2.department = e1.department), 2) AS dept_avg
+    FROM employees e1
+    WHERE e1.salary > (
+        SELECT AVG(salary)
+        FROM employees e2
+        WHERE e2.department = e1.department
+    )
+""")
+save_query("above_dept_avg.csv",
+           ["Name", "Department", "Salary", "Dept Average"],
+           cursor.fetchall())
+
+# ============================================
+# QUERY 9: CTE – Department vs Overall Average
+# ============================================
+print("Running Query 9: Department averages vs overall average...")
+cursor.execute("""
+    WITH dept_avg AS (
+        SELECT department, AVG(salary) AS avg_salary
+        FROM employees
+        GROUP BY department
+    ),
+    overall AS (
+        SELECT AVG(salary) AS overall_avg FROM employees
+    )
+    SELECT
+        d.department,
+        ROUND(d.avg_salary, 2) AS dept_avg,
+        ROUND(o.overall_avg, 2) AS overall_avg,
+        ROUND(d.avg_salary - o.overall_avg, 2) AS difference
+    FROM dept_avg d, overall o
+    ORDER BY difference DESC
+""")
+save_query("dept_vs_overall_avg.csv",
+           ["Department", "Dept Average", "Overall Average", "Difference"],
+           cursor.fetchall())
+
+# ============================================
+# QUERY 10: Window Function – ROW_NUMBER
+# ============================================
+print("Running Query 10: Rank employees within department...")
+cursor.execute("""
+    SELECT
+        name,
+        department,
+        salary,
+        ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) AS rank_in_dept
+    FROM employees
+""")
+save_query("ranked_employees.csv",
+           ["Name", "Department", "Salary", "Rank in Dept"],
+           cursor.fetchall())
+
+# ============================================
+# QUERY 11: LEAD / LAG (Compare to Next/Previous)
+# ============================================
+print("Running Query 11: Compare to previous/next salary in department...")
+cursor.execute("""
+    SELECT
+        name,
+        department,
+        salary,
+        LAG(salary)  OVER (PARTITION BY department ORDER BY salary DESC) AS previous_higher,
+        LEAD(salary) OVER (PARTITION BY department ORDER BY salary DESC) AS next_lower
+    FROM employees
+""")
+save_query("salary_comparison.csv",
+           ["Name", "Department", "Salary", "Previous Higher", "Next Lower"],
+           cursor.fetchall())
+
+# ============================================
+# QUERY 12: RANK vs DENSE_RANK
+# ============================================
+print("Running Query 12: RANK vs DENSE_RANK...")
+cursor.execute("""
+    SELECT
+        name,
+        department,
+        salary,
+        RANK()       OVER (PARTITION BY department ORDER BY salary DESC) AS rank,
+        DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS dense_rank
+    FROM employees
+""")
+save_query("rank_comparison.csv",
+           ["Name", "Department", "Salary", "Rank", "Dense Rank"],
+           cursor.fetchall())
+
+# ============================================
+# QUERY 13: Conditional Aggregation (CASE WHEN)
+# ============================================
+print("Running Query 13: Conditional aggregation...")
+cursor.execute("""
+    SELECT
+        department,
+        COUNT(*) AS total_employees,
+        SUM(CASE WHEN salary > 70000 THEN 1 ELSE 0 END) AS high_earners,
+        SUM(CASE WHEN salary <= 70000 THEN 1 ELSE 0 END) AS standard_earners,
+        ROUND(100.0 * SUM(CASE WHEN salary > 70000 THEN 1 ELSE 0 END) / COUNT(*), 1) AS high_earner_pct
+    FROM employees
+    GROUP BY department
+""")
+save_query("conditional_aggregation.csv",
+           ["Department", "Total Employees", "High Earners", "Standard Earners", "High Earner %"],
+           cursor.fetchall())
+
+# ============================================
+# QUERY 14: Salary Outlier Detection (> 20% above dept avg)
+# ============================================
+print("Running Query 14: Salary outliers (>20% above department average)...")
+cursor.execute("""
+    SELECT
+        e1.name,
+        e1.department,
+        e1.salary,
+        ROUND((SELECT AVG(salary) FROM employees e2 WHERE e2.department = e1.department), 2) AS dept_avg,
+        ROUND(e1.salary - (SELECT AVG(salary) FROM employees e2 WHERE e2.department = e1.department), 2) AS difference,
+        ROUND(100.0 * (e1.salary - (SELECT AVG(salary) FROM employees e2 WHERE e2.department = e1.department))
+              / (SELECT AVG(salary) FROM employees e2 WHERE e2.department = e1.department), 1) AS pct_above_avg
+    FROM employees e1
+    WHERE e1.salary > (
+        SELECT AVG(salary) * 1.2
+        FROM employees e2
+        WHERE e2.department = e1.department
+    )
+""")
+save_query("salary_outliers.csv",
+           ["Name", "Department", "Salary", "Dept Average", "Difference", "% Above Avg"],
+           cursor.fetchall())
+
+# ============================================
+# FINISH
+# ============================================
+conn.close()
+print("\n✅ All 14 queries completed successfully!")
+print(f"📁 Results saved in the '{OUTPUT_DIR}/' folder."))
+""")
+
+# ============================================
 # 3. INSERT RICHER SAMPLE DATA
 # ============================================
 employees = [
