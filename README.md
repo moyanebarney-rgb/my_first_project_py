@@ -1,27 +1,62 @@
-# my_first_project_py
+# my_first_project_py — SQL Portfolio
 
-A beginner-friendly Python and SQL project that demonstrates core data analysis skills: creating a database, writing queries, and exporting results to CSV.
+A complete Python and SQL project demonstrating data analysis skills: creating a database, writing 14 progressive SQL queries, exporting results, and visualising outliers.
 
-## 📌 What This Project Does
+---
 
-This project simulates a simple employee and department database. It demonstrates:
+## 📌 Purpose
 
-- Creating a SQLite database and tables
-- Inserting sample data
-- Writing and executing SQL queries
-- Exporting query results to CSV files
+This project simulates an employee/department database to demonstrate real-world data analysis skills. It is designed as a portfolio piece for **fiscal analysis and infrastructure economics**.
 
-## 📊 The Queries
+---
 
-This project includes **fourteen SQL queries** that build on each other:
+## 📊 The Queries (14 Progressive Steps)
 
-| Query | Type | What It Does |
-| :--- | :--- | :--- |
-| **1** | `WHERE` | Filters employees by department |
-| **2** | `JOIN` | Combines employee and department data |
-| **3** | `WHERE >` | Finds employees earning above a threshold |
-| **4** | `GROUP BY` + `SUM` | Total salary per department |
-| **5** | `AVG`, `COUNT`, `ORDER BY` | Department stats |
+| # | Type | What It Does |
+|---|------|--------------|
+| 1 | `WHERE` | Filters employees by department |
+| 2 | `JOIN` | Combines employee and department data |
+| 3 | `WHERE >` | Finds employees earning above a threshold |
+| 4 | `GROUP BY` + `SUM` | Total salary per department |
+| 5 | `AVG`, `COUNT`, `ORDER BY` | Department statistics |
+| 6 | `HAVING` | Departments with avg salary > 70,000 |
+| 7 | `ORDER BY DESC` | Departments ranked by total salary |
+| 8 | Subquery | Employees above departmental average |
+| 9 | CTE | Dept averages vs overall average |
+| 10 | `ROW_NUMBER()` | Rank employees within department |
+| 11 | `LEAD()` / `LAG()` | Compare to previous/next salary |
+| 12 | `RANK()` / `DENSE_RANK()` | Compare ranking methods |
+| 13 | `CASE WHEN` | High/low earner percentages |
+| 14 | Outlier Detection | Employees above 120% of dept average |
+
+---
+
+## 📁 Output Files
+
+All 14 queries export to CSV files in the `outputs/` folder.
+
+---
+
+## 📊 Salary Distribution
+
+| Department | Min | Max | Avg | Range |
+|------------|-----|-----|-----|-------|
+| Finance | 72,000 | 95,000 | 85,000 | 23,000 |
+| Engineering | 71,000 | 92,000 | 81,500 | 21,000 |
+| Marketing | 62,000 | 75,000 | 68,300 | 13,000 |
+| Operations | 58,000 | 64,000 | 61,000 | 6,000 |
+
+No extreme outliers were found (>20% above departmental average).
+
+---
+
+## 📊 Visualisation
+
+The `salary_outliers_visualisation.py` script generates a bar chart of employees earning more than 20% above their department average. The chart is saved as `salary_outliers.png`.
+
+To run:
+```bash
+python salary_outliers_visualisation.py| **5** | `AVG`, `COUNT`, `ORDER BY` | Department stats |
 | **6** | `HAVING` | Departments with avg salary > 70,000 |
 | **7** | `ORDER BY DESC` | Departments ranked by total salary |
 | **8** | Subquery | Employees above departmental average |
